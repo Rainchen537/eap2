@@ -1,5 +1,5 @@
 # 使用官方Node.js运行时作为基础镜像
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 # 设置工作目录
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # 生产阶段
-FROM node:18-alpine AS production
+FROM node:20-alpine AS production
 
 # 安装dumb-init用于信号处理
 RUN apk add --no-cache dumb-init

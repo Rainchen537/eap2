@@ -28,7 +28,7 @@
     "jwt",
     "swagger"
   ],
-  "author": "EAP2 Team",
+  "author": "QuizOnly Team",
   "license": "MIT",
   "dependencies": {
     "@nestjs/common": "^11.1.6",
