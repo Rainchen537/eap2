@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: eap2-mysql-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: eap2
+      MYSQL_USER: eap2user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_dev_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - eap2-dev-network
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: eap2-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - eap2-dev-network
+
+  # phpMyAdmin（可选，用于数据库管理）
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: eap2-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: password
+    ports:
+      - "8080:80"
+    networks:
+      - eap2-dev-network
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local
+
+networks:
+  eap2-dev-network:
+    driver: bridge
