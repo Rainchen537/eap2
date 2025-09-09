@@ -72,6 +72,12 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: '/quiz-results/:id',
+      name: 'quiz-results',
+      component: () => import('@/views/quizzes/QuizResultView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import('@/views/ProfileView.vue'),
@@ -87,6 +93,12 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('@/views/admin/AdminDashboard.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true }
+    },
+    {
+      path: '/admin/ai-config',
+      name: 'admin-ai-config',
+      component: () => import('@/views/admin/AIConfigView.vue'),
       meta: { requiresAuth: true, requiresAdmin: true }
     },
     {

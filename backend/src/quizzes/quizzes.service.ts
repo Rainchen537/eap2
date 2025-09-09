@@ -8,6 +8,7 @@ import { Annotation, AnnotationType } from '../annotations/entities/annotation.e
 import { GenerateQuizDto } from './dto/generate-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
 import { ProvidersService } from '../providers/providers.service';
+import { fixChineseFilename } from '../utils/encoding.util';
 
 @Injectable()
 export class QuizzesService {
@@ -24,7 +25,7 @@ export class QuizzesService {
   ) {}
 
   async generateQuiz(generateQuizDto: GenerateQuizDto, userId: string): Promise<Quiz> {
-    const { fileId, questionCount, questionType, difficulty = 'medium' } = generateQuizDto;
+    const { fileId, questionCount, questionType, difficulty = 'medium', title, description } = generateQuizDto;
 
     // 验证文件存在
     const file = await this.fileRepository.findOne({
@@ -41,14 +42,36 @@ export class QuizzesService {
       order: { startOffset: 'ASC' },
     });
 
+    // 如果没有标注，将使用全文内容生成题目
+    let contentForGeneration = '';
+    let descriptionSuffix = '';
+
     if (focusAnnotations.length === 0) {
-      throw new BadRequestException('请先标注一些重要内容');
+      // 使用全文内容
+      contentForGeneration = file.canonicalText;
+      descriptionSuffix = '基于文档全文内容生成';
+      console.log('没有找到标注，将使用全文内容生成题目');
+    } else {
+      // 使用标注内容
+      contentForGeneration = focusAnnotations.map(a => a.text).join('\n\n');
+      descriptionSuffix = '基于文档标注内容生成';
+      console.log(`找到${focusAnnotations.length}个标注，将使用标注内容生成题目`);
     }
 
-    // 创建题目集
+    // 生成题目类型的中文描述
+    const questionTypeMap = {
+      'mcq': '单选题',
+      'fill_blank': '填空题',
+      'short_answer': '简答题'
+    };
+
+    // 修复文件名编码问题
+    const fixedFilename = fixChineseFilename(file.originalFilename);
+
+    // 创建题目集，使用自定义标题或默认标题
     const quiz = this.quizRepository.create({
-      title: `${file.originalFilename} - 自动生成题目`,
-      description: `基于文档标注内容生成的${questionCount}道${questionType === 'mcq' ? '单选' : '填空'}题`,
+      title: title || `${fixedFilename} - 自动生成题目`,
+      description: description || `${descriptionSuffix}的${questionCount}道${questionTypeMap[questionType]}`,
       fileId,
       userId,
       status: QuizStatus.GENERATING,
@@ -59,14 +82,14 @@ export class QuizzesService {
     const savedQuiz = await this.quizRepository.save(quiz);
 
     // 异步生成题目
-    this.generateQuestionsAsync(savedQuiz.id, focusAnnotations, questionCount, questionType, difficulty);
+    this.generateQuestionsAsync(savedQuiz.id, contentForGeneration, questionCount, questionType, difficulty);
 
     return savedQuiz;
   }
 
   private async generateQuestionsAsync(
     quizId: string,
-    annotations: Annotation[],
+    content: string,
     questionCount: number,
     questionType: string,
     difficulty: string,
@@ -75,8 +98,8 @@ export class QuizzesService {
       const quiz = await this.quizRepository.findOne({ where: { id: quizId } });
       if (!quiz) return;
 
-      // 准备标注内容
-      const focusContent = annotations.map(a => a.text).join('\n\n');
+      // 使用传入的内容（可能是标注内容或全文内容）
+      const focusContent = content;
 
       // 构建AI提示词
       const prompt = this.buildPrompt(focusContent, questionCount, questionType, difficulty);

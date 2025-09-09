@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { QuizzesService } from './quizzes.service';
 import { QuizzesController } from './quizzes.controller';
+import { QuizAttemptsService } from './quiz-attempts.service';
+import { QuizAttemptsController } from './quiz-attempts.controller';
 import { Quiz } from './entities/quiz.entity';
 import { Question } from './entities/question.entity';
 import { QuizAttempt } from './entities/quiz-attempt.entity';
@@ -16,8 +18,8 @@ import { ProvidersModule } from '../providers/providers.module';
     AnnotationsModule,
     ProvidersModule,
   ],
-  controllers: [QuizzesController],
-  providers: [QuizzesService],
-  exports: [QuizzesService],
+  controllers: [QuizzesController, QuizAttemptsController],
+  providers: [QuizzesService, QuizAttemptsService],
+  exports: [QuizzesService, QuizAttemptsService],
 })
 export class QuizzesModule {}

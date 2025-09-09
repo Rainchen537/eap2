@@ -46,7 +46,7 @@
         <el-col :span="6">
           <el-card class="stat-card">
             <div class="stat-content">
-              <div class="stat-number">{{ quiz?.file?.originalFilename || '未知' }}</div>
+              <div class="stat-number">{{ quiz?.file?.originalFilename ? fixChineseFilename(quiz.file.originalFilename) : '未知' }}</div>
               <div class="stat-label">源文档</div>
             </div>
           </el-card>
@@ -128,6 +128,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { ArrowLeft } from '@element-plus/icons-vue'
 import { quizzesApi } from '@/api/quizzes'
+import { fixChineseFilename } from '@/utils/encoding'
 import type { QuizEntity } from '@/types'
 
 const route = useRoute()
@@ -156,7 +157,7 @@ const loadQuiz = async () => {
 
 // 开始答题
 const startQuiz = () => {
-  router.push(`/quiz-attempts/start/${quizId.value}`)
+  router.push(`/quizzes/${quizId.value}/take`)
 }
 
 // 重新生成题目

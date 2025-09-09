@@ -12,16 +12,16 @@ export class GenerateQuizDto {
   @Max(20)
   questionCount: number;
 
-  @ApiProperty({ 
-    description: '题目类型', 
+  @ApiProperty({
+    description: '题目类型',
     enum: ['mcq', 'fill_blank', 'short_answer'],
     default: 'mcq'
   })
   @IsEnum(['mcq', 'fill_blank', 'short_answer'])
   questionType: 'mcq' | 'fill_blank' | 'short_answer';
 
-  @ApiProperty({ 
-    description: '题目难度', 
+  @ApiProperty({
+    description: '题目难度',
     enum: ['easy', 'medium', 'hard'],
     required: false,
     default: 'medium'
@@ -29,4 +29,20 @@ export class GenerateQuizDto {
   @IsOptional()
   @IsEnum(['easy', 'medium', 'hard'])
   difficulty?: 'easy' | 'medium' | 'hard';
+
+  @ApiProperty({
+    description: '自定义题目集标题',
+    required: false
+  })
+  @IsOptional()
+  @IsString()
+  title?: string;
+
+  @ApiProperty({
+    description: '自定义题目集描述',
+    required: false
+  })
+  @IsOptional()
+  @IsString()
+  description?: string;
 }

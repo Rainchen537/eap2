@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="header-right">
-        <el-button type="success" @click="generateQuiz" :loading="generating" :icon="Edit">
+        <el-button type="success" @click="showGenerateDialog" :icon="Edit">
           生成题目
         </el-button>
       </div>
@@ -75,6 +75,15 @@
         </div>
       </el-card>
     </div>
+
+    <!-- 题目生成对话框 -->
+    <QuizGenerateDialog
+      v-model="showDialog"
+      :file-id="fileId"
+      :filename="file?.originalFilename || ''"
+      @submit="handleGenerateQuiz"
+      ref="dialogRef"
+    />
   </div>
 </template>
 
@@ -87,18 +96,21 @@ import { filesApi } from '@/api/files'
 import { annotationsApi } from '@/api/annotations'
 import { quizzesApi } from '@/api/quizzes'
 import { fixChineseFilename } from '@/utils/encoding'
+import QuizGenerateDialog from '@/components/QuizGenerateDialog.vue'
 import type { FileEntity, AnnotationEntity, BlockEntity } from '@/types'
+import type { GenerateQuizDto } from '@/api/quizzes'
 
 const route = useRoute()
 const router = useRouter()
 
 // 响应式数据
 const loading = ref(false)
-const generating = ref(false)
 const file = ref<FileEntity | null>(null)
 const blocks = ref<BlockEntity[]>([])
 const annotations = ref<AnnotationEntity[]>([])
 const annotationMode = ref<'view' | 'focus' | 'exclude' | 'eraser'>('view')
+const showDialog = ref(false)
+const dialogRef = ref()
 
 // 获取文件ID
 const fileId = computed(() => route.params.id as string)
@@ -308,28 +320,30 @@ const getBlockClass = (block: BlockEntity) => {
   return classes
 }
 
-// 生成题目
-const generateQuiz = async () => {
+// 显示生成题目对话框
+const showGenerateDialog = () => {
   if (annotations.value.filter(a => a.type === 'focus').length === 0) {
     ElMessage.warning('请先标注一些重要内容')
     return
   }
+  showDialog.value = true
+}
 
-  generating.value = true
+// 处理题目生成
+const handleGenerateQuiz = async (data: GenerateQuizDto) => {
   try {
-    const response = await quizzesApi.generateQuiz({
-      fileId: fileId.value,
-      questionCount: 5,
-      questionType: 'mcq'
-    })
+    dialogRef.value?.setLoading(true)
+
+    const response = await quizzesApi.generateQuiz(data)
 
     ElMessage.success('题目生成成功')
+    showDialog.value = false
     router.push(`/quizzes/${response.id}`)
   } catch (error) {
     console.error('生成题目失败:', error)
     ElMessage.error('生成题目失败')
   } finally {
-    generating.value = false
+    dialogRef.value?.setLoading(false)
   }
 }
 

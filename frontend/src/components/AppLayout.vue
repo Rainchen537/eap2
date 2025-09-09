@@ -40,10 +40,20 @@
             <span>套餐管理</span>
           </el-menu-item>
           
-          <el-menu-item v-if="authStore.isAdmin" index="/admin">
-            <el-icon><Setting /></el-icon>
-            <span>系统管理</span>
-          </el-menu-item>
+          <el-sub-menu v-if="authStore.isAdmin" index="admin">
+            <template #title>
+              <el-icon><Setting /></el-icon>
+              <span>系统管理</span>
+            </template>
+            <el-menu-item index="/admin">
+              <el-icon><Monitor /></el-icon>
+              <span>管理面板</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/ai-config">
+              <el-icon><Cpu /></el-icon>
+              <span>AI配置</span>
+            </el-menu-item>
+          </el-sub-menu>
         </el-menu>
       </el-aside>
 
@@ -118,7 +128,9 @@ import {
   SwitchButton,
   ArrowDown,
   Expand,
-  Fold
+  Fold,
+  Monitor,
+  Cpu
 } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 import { useAppStore } from '@/stores/app'

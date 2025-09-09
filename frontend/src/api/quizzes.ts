@@ -6,6 +6,8 @@ export interface GenerateQuizDto {
   questionCount: number
   questionType: 'mcq' | 'fill_blank' | 'short_answer'
   difficulty?: 'easy' | 'medium' | 'hard'
+  title?: string
+  description?: string
 }
 
 export interface SubmitAnswerDto {
@@ -37,28 +39,28 @@ export const quizzesApi = {
 
   // 开始答题
   startQuiz(data: StartQuizDto): Promise<QuizAttemptEntity> {
-    return api.post('/quiz-attempts/start', data).then(res => res.data)
+    return api.post('/quiz-attempts/start', data).then(res => res.data.data || res.data)
   },
 
   // 提交答案
-  submitAnswer(attemptId: string, data: SubmitAnswerDto): Promise<void> {
-    return api.post(`/quiz-attempts/${attemptId}/answer`, data).then(res => res.data)
+  submitAnswer(attemptId: string, data: SubmitAnswerDto): Promise<QuizAttemptEntity> {
+    return api.post(`/quiz-attempts/${attemptId}/answer`, data).then(res => res.data.data || res.data)
   },
 
   // 完成答题
-  finishQuiz(attemptId: string): Promise<QuizAttemptEntity> {
-    return api.post(`/quiz-attempts/${attemptId}/finish`).then(res => res.data)
+  finishQuiz(attemptId: string, data?: { timeSpent?: number }): Promise<QuizAttemptEntity> {
+    return api.post(`/quiz-attempts/${attemptId}/finish`, data || {}).then(res => res.data.data || res.data)
   },
 
   // 获取答题记录
   getAttempts(quizId?: string): Promise<QuizAttemptEntity[]> {
     const params = quizId ? { quizId } : {}
-    return api.get('/quiz-attempts', { params }).then(res => res.data)
+    return api.get('/quiz-attempts', { params }).then(res => res.data.data || res.data)
   },
 
   // 获取答题详情
   getAttempt(id: string): Promise<QuizAttemptEntity> {
-    return api.get(`/quiz-attempts/${id}`).then(res => res.data)
+    return api.get(`/quiz-attempts/${id}`).then(res => res.data.data || res.data)
   },
 
   // 删除题目
