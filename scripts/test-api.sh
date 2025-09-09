@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 测试API配置脚本
-echo "🧪 测试EAP2 API配置..."
+echo "🧪 测试QuizOnly API配置..."
 
 # 检查后端是否启动
 echo "📡 检查后端服务..."
