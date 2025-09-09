@@ -9,7 +9,7 @@
 ### ✅ 完全就绪
 - **前端**: Vue 3应用运行在 http://localhost:5174
 - **后端**: NestJS API服务运行在 http://localhost:3000
-- **数据库**: 远程数据库 `quizonly` 连接成功，所有表已创建
+- **数据库**: 远程数据库 `aiagent` 连接成功，所有表已创建
 - **API文档**: Swagger文档可访问 http://localhost:3000/api/docs
 - **AI功能**: Mock Provider正常工作，智能回退机制已启用
 - **健康检查**: 所有服务状态正常
