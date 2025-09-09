@@ -18,7 +18,7 @@
           <h2>{{ quiz.title }}</h2>
           <p class="quiz-description">{{ quiz.description }}</p>
           <div class="quiz-meta">
-            <el-tag type="info">{{ quiz.questionEntities?.length || 0 }} 道题目</el-tag>
+            <el-tag type="info">{{ (quiz as any).questionEntities?.length || 0 }} 道题目</el-tag>
             <el-tag type="warning">总分 {{ quiz.totalScore }} 分</el-tag>
             <el-tag v-if="timeSpent > 0" type="success">
               已用时 {{ formatTime(timeSpent) }}

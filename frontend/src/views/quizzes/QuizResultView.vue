@@ -56,7 +56,7 @@
         
         <div class="questions-list">
           <div 
-            v-for="(question, index) in quiz.questionEntities" 
+            v-for="(question, index) in (quiz as any).questionEntities"
             :key="question.id"
             class="question-item"
             :class="{ 'correct': isCorrect(question.id), 'incorrect': !isCorrect(question.id) }"
