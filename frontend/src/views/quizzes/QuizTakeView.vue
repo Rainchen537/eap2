@@ -173,7 +173,7 @@ const timeSpent = ref(0)
 let timer: NodeJS.Timeout | null = null
 
 // 计算属性
-const totalQuestions = computed(() => quiz.value?.questionEntities?.length || 0)
+const totalQuestions = computed(() => (quiz.value as any)?.questionEntities?.length || 0)
 const answeredCount = computed(() => Object.keys(answers.value).filter(key => answers.value[key]?.trim()).length)
 const progressPercentage = computed(() =>
   totalQuestions.value > 0 ? Math.round((answeredCount.value / totalQuestions.value) * 100) : 0
