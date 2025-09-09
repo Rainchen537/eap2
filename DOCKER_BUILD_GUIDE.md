@@ -35,7 +35,15 @@
 
 ## 🚀 构建步骤
 
-### 方法1: 使用 Docker Compose (推荐)
+### 方法1: 生产环境部署 (推荐)
+
+```bash
+# 使用生产环境配置（无MySQL容器）
+chmod +x deploy-prod.sh
+./deploy-prod.sh
+```
+
+### 方法2: 开发环境 (包含MySQL容器)
 
 ```bash
 # 构建所有服务
