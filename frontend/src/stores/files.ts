@@ -24,11 +24,9 @@ export const useFilesStore = defineStore('files', () => {
       page.value = pageNum
       limit.value = pageSize
       
-      const response = await filesApi.getFiles(pageNum, pageSize)
-      if (response.data) {
-        files.value = response.data.files
-        total.value = response.data.total
-      }
+      const response = await filesApi.getFiles({ page: pageNum, limit: pageSize })
+      files.value = response.files
+      total.value = response.total
     } finally {
       loading.value = false
     }
@@ -121,7 +119,7 @@ export const useFilesStore = defineStore('files', () => {
   const getFileContent = async (id: string) => {
     try {
       const response = await filesApi.getFileContent(id)
-      return response.data
+      return response
     } catch (error) {
       throw error
     }
