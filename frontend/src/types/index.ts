@@ -143,7 +143,10 @@ export interface QuizEntity {
   status: 'generating' | 'completed' | 'failed'
   questionCount: number
   totalScore: number
+  totalPoints?: number
+  timeLimit?: number
   questions?: QuestionEntity[]
+  questionEntities?: QuestionEntity[]
   file?: FileEntity
   createdAt: string
   updatedAt: string
