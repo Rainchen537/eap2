@@ -42,7 +42,7 @@
       <!-- 题目列表 -->
       <div class="questions-container">
         <el-card
-          v-for="(question, index) in quiz.questionEntities"
+          v-for="(question, index) in (quiz as any).questionEntities"
           :key="question.id"
           class="question-card"
           :class="{ 'answered': isQuestionAnswered(question.id) }"
