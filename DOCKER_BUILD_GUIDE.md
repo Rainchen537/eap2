@@ -10,9 +10,17 @@
 
 ### 2. 前端构建错误修复
 
-**问题**: `crypto.hash is not a function` 和 Node.js 版本要求
+**问题1**: `crypto.hash is not a function` 和 Node.js 版本要求
 - **原因**: Vite 7.x 要求 Node.js 20.19+ 或 22.12+
 - **解决**: 升级 Docker 镜像从 `node:18-alpine` 到 `node:20-alpine`
+
+**问题2**: `addgroup: group 'nginx' in use`
+- **原因**: nginx:alpine 镜像已包含 nginx 用户和组
+- **解决**: 移除重复的用户创建命令，使用现有的 nginx 用户
+
+**问题3**: TypeScript 类型错误
+- **原因**: 依赖版本更新导致类型不兼容
+- **解决**: 修复类型导入和定义，提供跳过类型检查的构建选项
 
 ## 📦 构建要求
 

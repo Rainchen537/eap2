@@ -24,8 +24,11 @@ fi
 echo "📦 测试前端构建..."
 cd ../frontend
 echo "使用 Node.js 20 构建前端..."
+echo "注意：前端使用 nginx:alpine 作为生产镜像"
 if docker build -t quizonly-frontend:test .; then
     echo "✅ 前端构建成功"
+    echo "✅ Nginx配置已应用"
+    echo "✅ 静态文件已复制到 /usr/share/nginx/html"
 else
     echo "❌ 前端构建失败"
     echo "请检查构建日志以获取详细错误信息"

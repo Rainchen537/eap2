@@ -25,9 +25,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # 从builder阶段复制构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# 创建非root用户
-RUN addgroup -g 1001 -S nginx
-RUN adduser -S nginx -u 1001
+# 使用现有的nginx用户（nginx镜像已包含）
+# 无需创建新用户
 
 # 暴露端口
 EXPOSE 80
