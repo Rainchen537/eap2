@@ -310,7 +310,7 @@ const renderBlock = (block: BlockEntity) => {
 
 // 获取块样式类
 const getBlockClass = (block: BlockEntity) => {
-  const classes = [block.type]
+  const classes: string[] = [block.type]
   if (annotationMode.value !== 'view') {
     classes.push('selectable')
   }

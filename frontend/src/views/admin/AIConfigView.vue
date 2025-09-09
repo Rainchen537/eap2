@@ -452,7 +452,7 @@ const saveProvider = async () => {
     showCreateDialog.value = false
     resetForm()
     await loadProviders()
-  } catch (error) {
+  } catch (error: any) {
     if (error.errors) {
       // 表单验证错误
       return

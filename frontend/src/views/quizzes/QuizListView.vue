@@ -196,8 +196,8 @@ const total = ref(0)
 const stats = computed(() => {
   const totalQuizzes = quizzes.value.length
   const totalQuestions = quizzes.value.reduce((sum, quiz) => sum + getQuestionCount(quiz), 0)
-  const completedQuizzes = quizzes.value.filter(quiz => quiz.status === 'completed').length
-  const generatingQuizzes = quizzes.value.filter(quiz => quiz.status === 'generating').length
+  const completedQuizzes = quizzes.value.filter(quiz => (quiz as any).status === 'completed').length
+  const generatingQuizzes = quizzes.value.filter(quiz => (quiz as any).status === 'generating').length
 
   return {
     totalQuizzes,
@@ -212,7 +212,7 @@ const loadQuizzes = async () => {
   loading.value = true
   try {
     const response = await quizzesApi.getQuizzes()
-    quizzes.value = response
+    quizzes.value = response as any
     total.value = response.length
   } catch (error) {
     console.error('加载题目列表失败:', error)
