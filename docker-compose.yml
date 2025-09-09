@@ -8,8 +8,8 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
-      MYSQL_DATABASE: ${DB_DATABASE:-quizonly}
-      MYSQL_USER: ${DB_USERNAME:-quizonly_user}
+      MYSQL_DATABASE: ${DB_DATABASE:-aiagent}
+      MYSQL_USER: ${DB_USERNAME:-eap2user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-password}
     ports:
       - "${DB_PORT:-3306}:3306"
