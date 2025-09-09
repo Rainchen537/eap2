@@ -1,5 +1,5 @@
 import api from './index'
-import type { FileEntity, ApiResponse, PaginatedResponse } from '@/types'
+import type { FileEntity, ApiResponse, PaginatedResponse, BlockEntity } from '@/types'
 
 export interface FileListParams {
   page?: number
