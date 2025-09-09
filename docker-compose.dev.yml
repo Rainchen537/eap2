@@ -4,12 +4,12 @@ services:
   # MySQL数据库
   mysql:
     image: mysql:8.0
-    container_name: eap2-mysql-dev
+    container_name: quizonly-mysql-dev
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: eap2
-      MYSQL_USER: eap2user
+      MYSQL_DATABASE: quizonly
+      MYSQL_USER: quizonly_user
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
@@ -17,19 +17,19 @@ services:
       - mysql_dev_data:/var/lib/mysql
       - ./database/init:/docker-entrypoint-initdb.d
     networks:
-      - eap2-dev-network
+      - quizonly-dev-network
 
   # Redis缓存
   redis:
     image: redis:7-alpine
-    container_name: eap2-redis-dev
+    container_name: quizonly-redis-dev
     restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
       - redis_dev_data:/data
     networks:
-      - eap2-dev-network
+      - quizonly-dev-network
 
   # phpMyAdmin（可选，用于数据库管理）
   phpmyadmin:

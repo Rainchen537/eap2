@@ -4,7 +4,7 @@
     <el-header class="header">
       <div class="header-content">
         <div class="logo">
-          <h2>EAP2 文档管理系统</h2>
+          <h2>QuizOnly 智能出题平台</h2>
         </div>
         <div class="user-menu">
           <el-dropdown @command="handleCommand">

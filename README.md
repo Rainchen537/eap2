@@ -1,6 +1,6 @@
-# EAP2 - 文档精炼与出题平台
+# QuizOnly - 智能出题平台
 
-一个面向最终用户的文档精炼与出题平台，支持文档上传、智能标注、AI出题和在线答题。
+一个面向最终用户的智能出题平台，支持文档上传、智能标注、AI出题和在线答题。
 
 ## 🚀 当前状态
 
@@ -9,7 +9,7 @@
 ### ✅ 完全就绪
 - **前端**: Vue 3应用运行在 http://localhost:5174
 - **后端**: NestJS API服务运行在 http://localhost:3000
-- **数据库**: 远程数据库 `aiagent` 连接成功，所有表已创建
+- **数据库**: 远程数据库 `quizonly` 连接成功，所有表已创建
 - **API文档**: Swagger文档可访问 http://localhost:3000/api/docs
 - **AI功能**: Mock Provider正常工作，智能回退机制已启用
 - **健康检查**: 所有服务状态正常
@@ -24,7 +24,7 @@
 
 ## 项目概述
 
-构建一个面向最终用户的文档精炼与出题平台。核心功能：
+构建一个面向最终用户的智能出题平台。核心功能：
 
 - 用户上传 Word / TXT / Markdown 文件并预览
 - 允许用户用两种"荧光笔"标注：排除信息（exclude） 与 出题要点（focus）
@@ -72,7 +72,7 @@
 ## 项目结构
 
 ```
-eap2/
+quizonly/
 ├── frontend/          # Vue3 前端项目
 ├── backend/           # NestJS 后端项目
 ├── database/          # 数据库迁移和种子数据
@@ -93,7 +93,7 @@ eap2/
 ```bash
 # 克隆项目
 git clone <repository-url>
-cd eap2
+cd quizonly
 
 # 运行部署脚本
 ./scripts/deploy.sh
@@ -102,7 +102,7 @@ cd eap2
 部署完成后访问：
 - 前端应用: http://localhost
 - API文档: http://localhost:3000/api/docs
-- 默认管理员: admin@eap2.com / admin123
+- 默认管理员: admin@quizonly.com / admin123
 
 ### 🛠️ 开发环境设置
 

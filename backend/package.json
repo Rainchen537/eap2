@@ -1,7 +1,7 @@
 {
-  "name": "eap2-backend",
+  "name": "quizonly-backend",
   "version": "1.0.0",
-  "description": "EAP2 文档精炼与出题平台后端服务",
+  "description": "QuizOnly 智能出题平台后端服务",
   "main": "dist/main.js",
   "scripts": {
     "build": "nest build",

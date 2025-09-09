@@ -1,8 +1,8 @@
 -- 创建数据库（如果不存在）
-CREATE DATABASE IF NOT EXISTS eap2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS quizonly CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- 使用数据库
-USE eap2;
+USE quizonly;
 
 -- 设置时区
 SET time_zone = '+08:00';
@@ -12,7 +12,7 @@ SET time_zone = '+08:00';
 INSERT IGNORE INTO users (id, email, password, firstName, lastName, role, status, createdAt, updatedAt) 
 VALUES (
   'admin-uuid-1234-5678-9012',
-  'admin@eap2.com',
+  'admin@quizonly.com',
   '$2b$12$LQv3c1yqBwEHxPr5glPeXeH6GVQdl4MWMG8rVJ8rVJ8rVJ8rVJ8rV',
   'Admin',
   'User',

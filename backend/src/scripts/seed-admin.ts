@@ -19,14 +19,14 @@ async function seedAdmin() {
     const userRepository = app.get<Repository<User>>(getRepositoryToken(User));
 
     // 检查管理员用户是否已存在
-    const existingAdmin = await usersService.findByEmail('admin@eap2.com');
+    const existingAdmin = await usersService.findByEmail('admin@quizonly.com');
 
     if (!existingAdmin) {
       // 直接使用repository创建管理员用户
       console.log('👤 创建管理员用户...');
 
       const adminUser = userRepository.create({
-        email: 'admin@eap2.com',
+        email: 'admin@quizonly.com',
         password: '$2b$12$ozBHMx8MRIr4Apl0Nw2.yu/85baIkBPclWF9pNzaLRucchHtFhuQK', // admin123
         firstName: '系统',
         lastName: '管理员',
@@ -103,7 +103,7 @@ async function seedAdmin() {
     console.log('🎉 种子数据创建完成！');
     console.log('');
     console.log('📋 创建的账户信息：');
-    console.log('   邮箱: admin@eap2.com');
+    console.log('   邮箱: admin@quizonly.com');
     console.log('   密码: admin123');
     console.log('   角色: 管理员');
     console.log('');
