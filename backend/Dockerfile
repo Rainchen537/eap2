@@ -7,8 +7,8 @@ WORKDIR /app
 # 复制package.json和package-lock.json
 COPY package*.json ./
 
-# 安装依赖
-RUN npm ci --only=production && npm cache clean --force
+# 安装所有依赖（包括devDependencies，构建时需要）
+RUN npm ci && npm cache clean --force
 
 # 复制源代码
 COPY . .
@@ -29,10 +29,14 @@ RUN adduser -S nestjs -u 1001
 # 设置工作目录
 WORKDIR /app
 
+# 复制package.json文件
+COPY --chown=nestjs:nodejs package*.json ./
+
+# 只安装生产依赖
+RUN npm ci --only=production && npm cache clean --force
+
 # 从builder阶段复制构建产物
 COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
-COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nestjs:nodejs /app/package*.json ./
 
 # 创建uploads目录
 RUN mkdir -p uploads && chown nestjs:nodejs uploads
