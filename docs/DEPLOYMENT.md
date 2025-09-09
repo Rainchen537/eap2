@@ -286,7 +286,7 @@ DATE=$(date +%Y%m%d_%H%M%S)
 
 mkdir -p $BACKUP_DIR
 
-docker-compose exec mysql mysqldump -u root -p$DB_PASSWORD eap2 > $BACKUP_DIR/eap2_$DATE.sql
+docker-compose exec mysql mysqldump -u root -p$DB_PASSWORD quizonly > $BACKUP_DIR/quizonly_$DATE.sql
 
 # 保留最近30天的备份
 find $BACKUP_DIR -name "*.sql" -mtime +30 -delete
