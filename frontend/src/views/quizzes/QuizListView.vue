@@ -299,8 +299,8 @@ const getQuestionCount = (quiz: Quiz) => {
   if (quiz.questions && Array.isArray(quiz.questions)) {
     return quiz.questions.length
   }
-  if (quiz.questionEntities && Array.isArray(quiz.questionEntities)) {
-    return quiz.questionEntities.length
+  if ((quiz as any).questionEntities && Array.isArray((quiz as any).questionEntities)) {
+    return (quiz as any).questionEntities.length
   }
   return 0
 }
