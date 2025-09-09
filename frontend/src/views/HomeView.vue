@@ -4,7 +4,7 @@
     <el-header class="header">
       <div class="header-content">
         <div class="logo">
-          <h2>EAP2 文档精炼与出题平台</h2>
+          <h2>QuizOnly 智能出题平台</h2>
         </div>
         <div class="nav-actions">
           <el-button type="primary" @click="$router.push('/login')">登录</el-button>
@@ -103,7 +103,7 @@
     <!-- 页脚 -->
     <el-footer class="footer">
       <div class="footer-content">
-        <p>&copy; 2024 EAP2 文档精炼与出题平台. All rights reserved.</p>
+        <p>&copy; 2024 QuizOnly 智能出题平台. All rights reserved.</p>
       </div>
     </el-footer>
   </div>

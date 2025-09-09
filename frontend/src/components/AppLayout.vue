@@ -5,7 +5,7 @@
       <el-aside :width="appStore.sidebarCollapsed ? '64px' : '250px'" class="sidebar">
         <div class="sidebar-header">
           <div v-if="!appStore.sidebarCollapsed" class="logo">
-            <h3>EAP2</h3>
+            <h3>QuizOnly</h3>
           </div>
           <el-button
             text

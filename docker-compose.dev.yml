@@ -34,7 +34,7 @@ services:
   # phpMyAdmin（可选，用于数据库管理）
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: eap2-phpmyadmin
+    container_name: quizonly-phpmyadmin
     restart: unless-stopped
     environment:
       PMA_HOST: mysql
@@ -44,7 +44,7 @@ services:
     ports:
       - "8080:80"
     networks:
-      - eap2-dev-network
+      - quizonly-dev-network
     depends_on:
       - mysql
 
@@ -55,5 +55,5 @@ volumes:
     driver: local
 
 networks:
-  eap2-dev-network:
+  quizonly-dev-network:
     driver: bridge
