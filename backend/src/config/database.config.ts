@@ -27,7 +27,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       port: this.configService.get('DB_PORT', 3306),
       username: this.configService.get('DB_USERNAME', 'root'),
       password: this.configService.get('DB_PASSWORD', 'password'),
-      database: this.configService.get('DB_DATABASE', 'quizonly'),
+      database: this.configService.get('DB_DATABASE', 'aiagent'),
       entities: [
         User,
         File,
@@ -57,7 +57,7 @@ const dataSourceOptions: DataSourceOptions = {
   port: parseInt(process.env.DB_PORT) || 3306,
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || 'password',
-  database: process.env.DB_DATABASE || 'quizonly',
+  database: process.env.DB_DATABASE || 'aiagent',
   entities: [
     User,
     File,
