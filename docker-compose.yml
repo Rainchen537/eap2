@@ -51,9 +51,9 @@ services:
       PORT: 3000
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USERNAME: ${DB_USERNAME:-quizonly_user}
+      DB_USERNAME: ${DB_USERNAME:-eap2user}
       DB_PASSWORD: ${DB_PASSWORD:-password}
-      DB_DATABASE: ${DB_DATABASE:-quizonly}
+      DB_DATABASE: ${DB_DATABASE:-aiagent}
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-here}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your-super-secret-refresh-key-here}
       REDIS_HOST: redis
