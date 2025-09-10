@@ -138,7 +138,8 @@ const visible = computed({
 })
 
 const uploadUrl = computed(() => {
-  return `${import.meta.env.VITE_API_BASE_URL}/files/upload`
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
+  return `${baseUrl}/files/upload`
 })
 
 const uploadHeaders = computed(() => {

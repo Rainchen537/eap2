@@ -13,6 +13,10 @@ RUN npm ci && npm cache clean --force
 # 复制源代码
 COPY . .
 
+# 设置生产环境变量
+ENV NODE_ENV=production
+ENV VITE_API_BASE_URL=/api
+
 # 构建应用
 RUN npm run build
 
