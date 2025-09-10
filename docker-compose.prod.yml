@@ -1,13 +1,12 @@
 version: '3.8'
 
 services:
-  # Redis缓存（可选）
+  # Redis缓存（内部使用，不暴露端口）
   redis:
     image: redis:7-alpine
     container_name: quizonly-redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    # 移除端口映射，只在容器内部使用
     volumes:
       - redis_data:/data
     networks:
@@ -28,11 +27,11 @@ services:
       - "${BACKEND_PORT:-3000}:3000"
     environment:
       NODE_ENV: production
-      DB_HOST: ${DB_HOST}
+      DB_HOST: 45.221.115.62
       DB_PORT: ${DB_PORT:-3306}
-      DB_USERNAME: ${DB_USERNAME:-eap2user}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_DATABASE: ${DB_DATABASE:-aiagent}
+      DB_USERNAME: root
+      DB_PASSWORD: mysql_DkX6wK
+      DB_DATABASE: aiagent
       JWT_SECRET: ${JWT_SECRET}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
       REDIS_HOST: redis
